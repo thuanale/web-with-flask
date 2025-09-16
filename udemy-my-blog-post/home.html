@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microblog</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar__brand">
+            <img class="navbar_logo" src="image/Logo.svg" alt="Blog logo" /> Microblog
+        </div>
+        <ul class="navbar__navigation">
+            <li class="navbar__navigation-item"><a href="#" class="navbar__link">Recent</a></li>
+            <li class="navbar__navigation-item"><a href="#" class="navbar__link">Calendar</a></li>
+        </ul>
+    </header>
+    <main class="main">
+        <section>
+            <h1>Add new entry</h1>
+            <form class="form" action="/entry" method="POST">
+                <p class="form__input">
+                    <label class="form__label" for="entry">Entry contents</label>
+                    <textarea class="form__textarea" name="content" id="entry"></textarea>
+                </p>
+                <button class="form__submit" type="submit">Submit</button>
+            </form>
+        </section>
+        <section>
+            <h1>Recent post</h1>
+            <article>
+                <div>
+                    <h2> First blog post </h2>
+                    <time datetime="2025-09-17">Sept 25</time>
+                </div>
+                <p>
+                    This is my second first blog.
+                </p>
+            </article>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer__content">
+            <section>
+                <a class="footer__item">Retype by me</a>
+                <a class="footer__item">Check out my github</a>
+            </section>
+            <section>
+                <a class="footer__item">About</a>
+                <a class="footer__item">How</a>
+            </section>
+        </div>
+        
+    </footer>
+</body>
+</html>
