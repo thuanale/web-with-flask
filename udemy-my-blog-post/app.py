@@ -2,15 +2,32 @@
 
 from flask import Flask, render_template, request
 import datetime
+from pymongo import MongoClient, ASCENDING, DESCENDING
 
-app=Flask(__name__)
+def create_app():
+    app=Flask(__name__)
+    client = MongoClient("mongodb://mongo:mongo@db:27017")
+    app.db = client["microblog"]
+    collection = app.db["posts"]
 
-entries = []
+    @app.route("/", methods=["GET","POST"])
+    def home():
+        if request.method == "POST":
+            entry_content = request.form.get("content")
+            formatted_date = datetime.datetime.today().strftime("%Y-%m-%d")
+            collection.insert_one({
+                "content": entry_content,
+                "date": formatted_date,
+            })
 
-@app.route("/", methods=["GET","POST"])
-def home():
-    if request.method == "POST":
-        entry_content = request.form.get("content")
-        formatted_date = datetime.datetime.today().strftime("%Y-%m-%d")
-        entries.append((entry_content, formatted_date))
-    return render_template("home.html", entries=entries)
+        entries_with_date = [
+            (
+                entry["content"],
+                entry["date"],
+                datetime.datetime.strptime(entry["date"],"%Y-%m-%d").strftime("%b %d")
+            )
+            for entry in collection.find({}).sort([("date", DESCENDING)])
+        ]
+        return render_template("home.html", entries=entries_with_date)
+    
+    return app
