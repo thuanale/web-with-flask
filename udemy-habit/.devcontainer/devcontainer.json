@@ -1,0 +1,8 @@
+{
+  "name": "Python3 and mogodb",
+  "dockerComposeFile": "docker-compose.yaml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "shutdownAction": "stopCompose",
+  "postCreateCommand": "pip install --user -r requirements.txt"
+}
