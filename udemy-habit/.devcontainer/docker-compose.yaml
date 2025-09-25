@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    # https://tkacz.pro/docker-volumes-cached-vs-delegated/
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+    # https://stackoverflow.com/questions/74903232/what-is-the-difference-between-network-mode-and-networks-using-docker
+    network_mode: service:db
+  
+  db: 
+  # https://hub.docker.com/_/mongo
+    image: mongo:latest
+    restart: unless-stopped
+    volumes:
+      - db_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+volumes:
+  db_data:
